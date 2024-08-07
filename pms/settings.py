@@ -38,9 +38,25 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'graphene_django',
-    'project',
+    'graphql_jwt',
+    'users',
+    'experts',
+    'guides',
+    'payments',
+    'relationships',
+    'notifications',
 ]
+GRAPHENE = {
+    'SCHEMA': 'schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+}
 
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -101,11 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-GRAPHENE = {
-    "SCHEMA": "schema.schema",
-    'MIDDLEWARE': [
-    ],
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
