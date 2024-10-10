@@ -1,24 +1,14 @@
+# schema.py
 import graphene
-from accounts.schema import Query as acc_Query, Mutation as acc_Mutation
+import accounts.schema
+import important_dates.schema
+import chat.schema
+import guides.schema
 
-
-
-class Query(acc_Query, graphene.ObjectType):
-    protected_data = graphene.String()
-
-
-    def resolve_protected_data(self, info):
-        return "This is protected data"
-
-
-class Mutation(acc_Mutation, graphene.ObjectType):
+class Query(accounts.schema.Query, important_dates.schema.Query, chat.schema.Query, guides.schema.Query, graphene.ObjectType):
     pass
 
-
-
-
-
-# schema = graphene.Schema(mutation=Mutation)
-
+class Mutation(accounts.schema.Mutation, important_dates.schema.Mutation, chat.schema.Mutation, guides.schema.Mutation, graphene.ObjectType):
+    pass
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
